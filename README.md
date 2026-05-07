@@ -32,3 +32,13 @@ node server.js
 ```text
 http://localhost:5500
 ```
+
+## Deploy To Vercel
+
+1. Import this GitHub repository into Vercel.
+2. Use `Other` as the framework preset.
+3. Leave the build command and output directory empty.
+4. Add an environment variable named `NEWS_API_KEY` with your NewsAPI key.
+5. Deploy the project.
+
+Vercel will serve the static frontend and run `api/news.js` as the NewsAPI proxy.
