@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PulseWire News Aggregator</title>
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="sidebar glass-panel" aria-label="News navigation">
+        <a class="brand" href="#" aria-label="PulseWire home">
+          <span class="brand-mark">P</span>
+          <span>
+            <strong>PulseWire</strong>
+            <small>News aggregator</small>
+          </span>
+        </a>
+
+        <nav class="category-list" aria-label="Categories"></nav>
+
+        <section class="source-box" aria-labelledby="sources-title">
+          <div class="section-heading">
+            <h2 id="sources-title">Sources</h2>
+            <span id="source-count">Connecting</span>
+          </div>
+          <div id="source-list" class="source-list"></div>
+        </section>
+      </aside>
+
+      <section class="content">
+        <header class="topbar glass-panel">
+          <div>
+            <p class="eyebrow">Curated briefing</p>
+            <h1>Today across the wire</h1>
+          </div>
+
+          <div class="topbar-actions">
+            <label class="search-wrap" for="search-input">
+              <span aria-hidden="true">Search</span>
+              <input id="search-input" type="search" placeholder="Search headlines, sources..." />
+            </label>
+
+            <button class="icon-button" id="refresh-button" type="button" title="Refresh feed" aria-label="Refresh feed">
+              Refresh
+            </button>
+
+            <label class="theme-toggle" for="theme-switch">
+              <input id="theme-switch" type="checkbox" />
+              <span class="toggle-track" aria-hidden="true">
+                <span class="toggle-thumb"></span>
+              </span>
+              <span class="sr-only">Toggle theme</span>
+            </label>
+          </div>
+        </header>
+
+        <section class="briefing-grid">
+          <article class="featured glass-panel" id="featured-story"></article>
+
+          <div class="metrics">
+            <article class="metric glass-panel">
+              <span id="article-count">0</span>
+              <p>Stories tracked</p>
+            </article>
+            <article class="metric glass-panel">
+              <span id="bookmark-count">0</span>
+              <p>Saved reads</p>
+            </article>
+            <article class="metric glass-panel">
+              <span id="trend-count">0</span>
+              <p>Trending topics</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="feed-toolbar">
+          <div>
+            <h2>Latest stories</h2>
+            <p id="feed-summary">Showing all updates</p>
+          </div>
+
+          <select id="sort-select" aria-label="Sort stories">
+            <option value="latest">Latest first</option>
+            <option value="source">Source A-Z</option>
+            <option value="readTime">Shortest read</option>
+          </select>
+        </section>
+
+        <section id="news-grid" class="news-grid" aria-live="polite"></section>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
