@@ -23,7 +23,7 @@ const state = {
   loading: true,
   error: "",
   totalResults: 0,
-  saved: new Set(JSON.parse(localStorage.getItem("pulsewire:saved") || "[]"))
+  saved: new Set(JSON.parse(localStorage.getItem("synthnews:saved") || "[]"))
 };
 
 const els = {
@@ -42,7 +42,7 @@ const els = {
   trendCount: document.querySelector("#trend-count")
 };
 
-const savedTheme = localStorage.getItem("pulsewire:theme");
+const savedTheme = localStorage.getItem("synthnews:theme");
 if (savedTheme === "dark") {
   document.documentElement.dataset.theme = "dark";
   els.themeSwitch.checked = true;
@@ -337,7 +337,7 @@ function render() {
 }
 
 function persistSaved() {
-  localStorage.setItem("pulsewire:saved", JSON.stringify([...state.saved]));
+  localStorage.setItem("synthnews:saved", JSON.stringify([...state.saved]));
 }
 
 function debounce(fn, delay = 450) {
@@ -380,7 +380,7 @@ els.refreshButton.addEventListener("click", () => {
 els.themeSwitch.addEventListener("change", (event) => {
   const theme = event.target.checked ? "dark" : "light";
   document.documentElement.dataset.theme = theme === "dark" ? "dark" : "";
-  localStorage.setItem("pulsewire:theme", theme);
+  localStorage.setItem("synthnews:theme", theme);
 });
 
 els.newsGrid.addEventListener("click", (event) => {

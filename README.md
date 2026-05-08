@@ -1,6 +1,6 @@
-# PulseWire
+# SynthNews
 
-PulseWire is a modern, minimalist news aggregator built with HTML, CSS, and JavaScript. It uses a small Node.js proxy server to fetch live headlines from NewsAPI without exposing the API key in frontend code.
+SynthNews is a modern, minimalist news aggregator built with HTML, CSS, and JavaScript. It uses a small Node.js proxy server to fetch live headlines from NewsAPI without exposing the API key in frontend code.
 
 ## Features
 

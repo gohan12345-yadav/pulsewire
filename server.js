@@ -95,5 +95,5 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(PORT, () => {
-  console.log(`PulseWire running at http://localhost:${PORT}`);
+  console.log(`SynthNews running at http://localhost:${PORT}`);
 });
