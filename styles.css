@@ -205,9 +205,16 @@ button {
   height: 44px;
   place-items: center;
   border-radius: 8px;
-  color: white;
-  font-weight: 800;
-  background: linear-gradient(135deg, var(--accent), var(--warm));
+  overflow: hidden;
+  background: #06152f;
+  box-shadow: 0 10px 26px rgba(6, 21, 47, 0.22);
+}
+
+.brand-mark img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .brand strong,
