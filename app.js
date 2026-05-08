@@ -23,17 +23,23 @@ const state = {
   loading: true,
   error: "",
   totalResults: 0,
+  menuOpen: false,
+  sourcesExpanded: false,
   saved: new Set(JSON.parse(localStorage.getItem("synthnews:saved") || "[]"))
 };
 
 const els = {
   categoryList: document.querySelector(".category-list"),
+  menuBackdrop: document.querySelector("#menu-backdrop"),
+  menuButton: document.querySelector("#menu-button"),
+  menuClose: document.querySelector("#menu-close"),
   searchInput: document.querySelector("#search-input"),
   sortSelect: document.querySelector("#sort-select"),
   refreshButton: document.querySelector("#refresh-button"),
   themeSwitch: document.querySelector("#theme-switch"),
   sourceList: document.querySelector("#source-list"),
   sourceCount: document.querySelector("#source-count"),
+  sourceToggle: document.querySelector("#source-toggle"),
   featured: document.querySelector("#featured-story"),
   newsGrid: document.querySelector("#news-grid"),
   feedSummary: document.querySelector("#feed-summary"),
@@ -47,6 +53,7 @@ if (savedTheme === "dark") {
   document.documentElement.dataset.theme = "dark";
   els.themeSwitch.checked = true;
 }
+document.documentElement.dataset.newsTheme = state.category;
 
 function escapeHtml(value) {
   return String(value || "")
@@ -95,6 +102,16 @@ function getRelativeTime(date) {
 
 function getCategoryLabel(value) {
   return NEWS_CATEGORIES.find((category) => category.value === value)?.label || "General";
+}
+
+function applyCategoryTheme() {
+  document.documentElement.dataset.newsTheme = state.category;
+}
+
+function setMenuOpen(isOpen) {
+  state.menuOpen = isOpen;
+  document.body.classList.toggle("menu-open", isOpen);
+  els.menuButton?.setAttribute("aria-expanded", String(isOpen));
 }
 
 function getNewsApiUrl() {
@@ -176,6 +193,10 @@ async function fetchNews() {
 
 function renderSources() {
   els.sourceCount.textContent = `${sources.length || 1} live`;
+  els.sourceList.classList.toggle("is-expanded", state.sourcesExpanded);
+  els.sourceToggle.hidden = sources.length <= 5;
+  els.sourceToggle.textContent = state.sourcesExpanded ? "Collapse" : "Expand all";
+  els.sourceToggle.setAttribute("aria-expanded", String(state.sourcesExpanded));
   els.sourceList.innerHTML = (sources.length ? sources : [{ name: "NewsAPI", type: "Top headlines", reliability: "Live" }])
     .map(
       (source) => `
@@ -355,8 +376,27 @@ els.categoryList.addEventListener("click", (event) => {
   if (!button) return;
 
   state.category = button.dataset.category;
+  applyCategoryTheme();
   renderCategories();
+  setMenuOpen(false);
   fetchNews();
+});
+
+els.menuButton.addEventListener("click", () => {
+  setMenuOpen(true);
+});
+
+els.menuClose.addEventListener("click", () => {
+  setMenuOpen(false);
+});
+
+els.menuBackdrop.addEventListener("click", () => {
+  setMenuOpen(false);
+});
+
+els.sourceToggle.addEventListener("click", () => {
+  state.sourcesExpanded = !state.sourcesExpanded;
+  renderSources();
 });
 
 els.searchInput.addEventListener("input", (event) => {
@@ -381,6 +421,12 @@ els.themeSwitch.addEventListener("change", (event) => {
   const theme = event.target.checked ? "dark" : "light";
   document.documentElement.dataset.theme = theme === "dark" ? "dark" : "";
   localStorage.setItem("synthnews:theme", theme);
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    setMenuOpen(false);
+  }
 });
 
 els.newsGrid.addEventListener("click", (event) => {
