@@ -172,7 +172,9 @@ button {
 }
 
 .menu-close,
-.menu-button {
+.menu-button,
+.mobile-header-row,
+.mobile-brand {
   display: none;
 }
 
@@ -182,6 +184,19 @@ button {
   gap: 12px;
   color: inherit;
   text-decoration: none;
+}
+
+.mobile-brand {
+  align-items: center;
+  gap: 10px;
+  color: inherit;
+  text-decoration: none;
+  font-weight: 900;
+}
+
+.mobile-brand .brand-mark {
+  width: 38px;
+  height: 38px;
 }
 
 .brand-mark {
@@ -715,6 +730,18 @@ select {
 
   .menu-close {
     width: 100%;
+  }
+
+  .mobile-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .mobile-brand {
+    display: inline-flex;
   }
 
   [data-theme="dark"] .menu-close,
